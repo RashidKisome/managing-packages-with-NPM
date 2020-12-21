@@ -28,9 +28,19 @@ if (!process.env.DISABLE_XORIGIN) {
     next();
   });
 }
+// serve an HTML file
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/views/index.html");
+});
 
+// serve static assets
 app.use(express.static(__dirname + "/public"));
 app.use("/public", express.static(__dirname + "/public"));
+
+// serve JSON on a specific route
+app.get("/json", function (req, res) {
+  res.json({ message: "Hello json" });
+});
 
 // app.use("/public", express.static(process.cwd() + "/public"));
 
@@ -61,10 +71,6 @@ app.use("/public", express.static(__dirname + "/public"));
 //       .send(err.message || "SERVER ERROR");
 //   }
 // });
-
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/views/index.html");
-});
 
 // send the /views/index.html as a response to GET
 
