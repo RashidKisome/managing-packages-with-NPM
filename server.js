@@ -8,6 +8,8 @@
 var fs = require("fs");
 var express = require("express");
 var app = express();
+var bGround = require("fcc-express-bground");
+var myApp = require("./myApp");
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function (req, res, next) {
@@ -57,7 +59,9 @@ app.use(function (err, req, res, next) {
       .send(err.message || "SERVER ERROR");
   }
 });
-
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Node.js listening ...");
-});
+var port = process.env.PORT || 3000;
+bGround
+  .setupBackgroundApp(app, myApp, __dirname)
+  .listen(port || 3000, function () {
+    bGround.log("Node.js listening on port " + port + "...");
+  });
