@@ -3,7 +3,7 @@
   "description": "fooling around with node and freecodecamp",
   "name": "fcc-learn-npm-package-json",
   "license": "MIT",
-  "version": "1.0",
+  "version": "1.0.0",
   "keywords": [
     "freecodecamp",
     "lite bullshitinfo",
