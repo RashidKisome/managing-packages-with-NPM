@@ -60,8 +60,10 @@ if (!process.env.DISABLE_XORIGIN) {
 // });
 
 app.get("/", function (req, res) {
-  res.send("Hello Express");
+  res.sendFile(__dirname + "/views/index.html");
 });
+
+// send the /views/index.html as a response to GET
 
 var port = process.env.PORT || 3000;
 bGround
