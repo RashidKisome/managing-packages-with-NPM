@@ -2,6 +2,7 @@
   "author": "Rashid",
   "description": "fooling around with node and freecodecamp",
   "name": "fcc-learn-npm-package-json",
+  "license": "MIT",
   "keywords": [
     "freecodecamp",
     "lite bullshitinfo",
