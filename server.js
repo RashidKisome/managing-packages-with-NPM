@@ -4,11 +4,11 @@
  * ***************************************************/
 
 // "use strict";
-
-var bGround = require("fcc-express-bground");
 var myApp = require("./myApp");
 var express = require("express");
+var bGround = require("fcc-express-bground");
 var app = express();
+require("dotenv").config();
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function (req, res, next) {
@@ -38,10 +38,17 @@ app.use(express.static(__dirname + "/public"));
 app.use("/public", express.static(__dirname + "/public"));
 
 // serve JSON on a specific route
-app.get("/json", function (req, res) {
-  res.json({ message: "Hello json" });
-});
+// app.get("/json", function (req, res) {
+//   res.json({ message: "Hello json" });
+// });
 
+app.get("/json", function (req, res) {
+  if (process.env.MESSAGE_STYLE === "uppercase") {
+    res.json({ message: "HELLO JSON" });
+  } else {
+    res.json({ message: "Hello json" });
+  }
+});
 // app.use("/public", express.static(process.cwd() + "/public"));
 
 // app.route("/_api/package.json").get(function (req, res, next) {
