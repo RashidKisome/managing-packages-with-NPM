@@ -3,12 +3,13 @@
  * the verification process may break
  * ***************************************************/
 
-// "use strict";
+// 'use strict';
+
+// var fs = require('fs');
+var bGround = require("fcc-express-bground");
 var myApp = require("./myApp");
 var express = require("express");
-var bGround = require("fcc-express-bground");
 var app = express();
-require("dotenv").config();
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function (req, res, next) {
@@ -28,66 +29,39 @@ if (!process.env.DISABLE_XORIGIN) {
     next();
   });
 }
-// serve an HTML file
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/views/index.html");
-});
 
-// app.use(function (req, res, next) {
-//   console.log(req.method + " " + req.path, +" " + req.ip);
-//   next();
-// });
-// serve static assets
-app.use(express.static(__dirname + "/public"));
-app.use("/public", express.static(__dirname + "/public"));
-
-// serve JSON on a specific route
-// app.get("/json", function (req, res) {
-//   res.json({ message: "Hello json" });
-// });
-
-app.get("/json", function (req, res) {
-  if (process.env.MESSAGE_STYLE === "uppercase") {
-    res.json({ message: "HELLO JSON" });
-  } else {
-    res.json({ message: "Hello json" });
-  }
-});
-// app.use("/public", express.static(process.cwd() + "/public"));
-
-// app.route("/_api/package.json").get(function (req, res, next) {
-//   console.log("requested");
-//   fs.readFile(__dirname + "/package.json", function (err, data) {
-//     if (err) return next(err);
-//     res.type("txt").send(data.toString());
+// app.use('/public', express.static(process.cwd() + '/public'));
+//
+// app.route('/_api/package.json')
+//   .get(function(req, res, next) {
+//     console.log('requested');
+//     fs.readFile(__dirname + '/package.json', function(err, data) {
+//       if(err) return next(err);
+//       res.type('txt').send(data.toString());
+//     });
 //   });
-// });
-
-// app.route("/").get(function (req, res) {
-//   res.sendFile(process.cwd() + "/views/index.html");
-// });
-
+//
+// app.route('/')
+//     .get(function(req, res) {
+// 		  res.sendFile(process.cwd() + '/views/index.html');
+//     })
+//
 // // Respond not found to all the wrong routes
-// app.use(function (req, res, next) {
+// app.use(function(req, res, next){
 //   res.status(404);
-//   res.type("txt").send("Not found");
+//   res.type('txt').send('Not found');
 // });
-
+//
 // // Error Middleware
-// app.use(function (err, req, res, next) {
-//   if (err) {
-//     res
-//       .status(err.status || 500)
-//       .type("txt")
-//       .send(err.message || "SERVER ERROR");
+// app.use(function(err, req, res, next) {
+//   if(err) {
+//     res.status(err.status || 500)
+//       .type('txt')
+//       .send(err.message || 'SERVER ERROR');
 //   }
-// });
-
-// send the /views/index.html as a response to GET
+// })
 
 var port = process.env.PORT || 3000;
-bGround
-  .setupBackgroundApp(app, myApp, __dirname)
-  .listen(port || 3000, function () {
-    bGround.log("Node.js listening on port " + port + "...");
-  });
+bGround.setupBackgroundApp(app, myApp, __dirname).listen(port, function () {
+  bGround.log("Node.js listening on port" + port + "...");
+});
